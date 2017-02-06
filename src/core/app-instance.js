@@ -10,7 +10,7 @@ function Application(routeMap) {
 };
 
 Application.prototype = {
-    init: function () {
+    init: function() {
         this.router = new Router(this._routeMap);
         this._analizeDom()
             ._initializeModels()
@@ -19,7 +19,7 @@ Application.prototype = {
 
     _analizeDom: function() {
         // TODO: analize DOM of document and find elements with specifyied 'data-' attr
-        
+
         return this;
     },
 
@@ -33,5 +33,13 @@ Application.prototype = {
         // TODO: map elements and theirs setting to views using this._models
 
         return this;
+    },
+
+    bind: function(model, view) {
+
+    },
+
+    get: function() {
+
     }
 };

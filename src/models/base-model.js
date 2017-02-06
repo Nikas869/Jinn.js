@@ -3,8 +3,7 @@
 function Model(data) {
     this._data = data;
 
-    this.dataSetEvent = new Event(this);
-    this.dataEmptySetEvent = new Event(this);
+    this.events = new EventService();
 }
 
 Model.prototype = {
@@ -16,11 +15,11 @@ Model.prototype = {
     // Setting new data and notifying about it
     set: function(newData) {
         this._data = newData;
-        this.dataSetEvent.notify();
+        this.events.sendMessage(EventService.messages.MODEL_HAS_BEEN_UPDATED, null);
     },
 
     // Getter returns old model`s data and requests for new data
-    get: function () {
+    get: function() {
         var oldData = this._data;
         this.updateData();
 
@@ -31,7 +30,7 @@ Model.prototype = {
     updateData: function() {
         var data = this.getData();
         if (data === 'actual') {
-            this.dataEmptySetEvent.notify();
+            this.events.sendMessage(EventService.messages.MODEL_HAS_BEEN_UPDATED, null);
         } else {
             this.set(data);
         }

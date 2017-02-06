@@ -4,7 +4,7 @@
     var app = null;
 
     // On page loaded
-    $(function () {
+    $(function() {
         // Mapping views to routes
         var routeMap = {
             '#': ['view1', 'view2'],

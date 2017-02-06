@@ -4,7 +4,7 @@ function View() {
     this.models = [];
     var argModels = arguments;
     attachModels.call(this);
-    
+
     function attachModels() {
         for (var i = 0; i < argModels.length; i++) {
             if (argModels[i] instanceof Model) {
@@ -13,7 +13,7 @@ function View() {
         }
     }
 
-    this.dataGetEvent = new Event(this);
+    this.events = new EventService();
 
     this.init();
 }
@@ -26,7 +26,7 @@ View.prototype = {
             .enable();
     },
 
-    createChildren: function () {
+    createChildren: function() {
         this.$button = $('.button');
 
         return this;
@@ -41,7 +41,9 @@ View.prototype = {
     enable: function() {
         this.$button.click(this.modelUpdateHandler);
         for (var i = 0; i < this.models.length; i++) {
-            this.models[i].dataSetEvent.attach(this.modelUpdateHandler);
+            this.models[i].events.registerListener(EventService.messages.VIEW_RENDER_REQUEST,
+                this.modelUpdateHandler,
+                null);
         }
 
         return this;
