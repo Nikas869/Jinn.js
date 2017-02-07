@@ -8,7 +8,7 @@ var Model = function(data) {
     this.events = new EventService();
 };
 
-$.extend(Model.prototype, {
+_.extend(Model.prototype, {
 
     // Setting new data and notifying about it
     // TODO: ability to set multiple key:value or set as {key:value} object

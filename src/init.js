@@ -14,10 +14,12 @@
 
         Jinn = new JinnApp('body');
         _.l(Jinn);
-        var model = new Model({ lol: 'Lol' });
+        var model = new Jinn.Model({ lol: 'Lol' });
         var model1 = new Jinn.Model({ kek: 'kekdata' });
-        $.extend(model1, {
+        _.extend(model1, {
+            get: function() {
 
+            }
         });
         var view = new View(model);
         _.l(model);

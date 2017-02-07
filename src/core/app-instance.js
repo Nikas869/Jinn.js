@@ -14,7 +14,7 @@ function JinnApp() {
     this.init();
 };
 
-$.extend(JinnApp.prototype, {
+_.extend(JinnApp.prototype, {
     init: function() {
         this._analizeDom()
             ._initializeModels()

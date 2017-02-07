@@ -4,7 +4,7 @@ function EventService() {
     this._listeners = [];
 };
 
-$.extend(EventService.prototype, {
+_.extend(EventService.prototype, {
 
     registerListener: function(messageType, listener, context) {
         var existingListeners = this._listeners[messageType];
