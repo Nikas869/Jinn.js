@@ -1,43 +1,48 @@
 ﻿'use sctrict';
 
-function Model(data) {
-    this._data = data;
+var Model = function(data) {
+    this.data = data || {};
+    //var prefix = 'm';
+    //this.id = prefix + _.getUniqueId();
 
     this.events = new EventService();
-}
+};
 
-Model.prototype = {
-
-    init: function(initialData) {
-        this.set(initialData);
-    },
-
+$.extend(Model.prototype, {
+    
     // Setting new data and notifying about it
-    set: function(newData) {
-        this._data = newData;
-        this.events.sendMessage(EventService.messages.MODEL_HAS_BEEN_UPDATED, null);
+    // TODO: ability to set multiple key:value or set as {key:value} object
+    set: function (key, value) {
+        if (arguments.length !== 2 || typeof arguments[0] !== 'string') {
+            return this;
+        }
+        this.data[key] = value;
+
+        this.events.sendMessage(EventService.messages.MODEL_HAS_BEEN_UPDATED, key);
+        return this;
     },
 
-    // Getter returns old model`s data and requests for new data
-    get: function() {
-        var oldData = this._data;
-        this.updateData();
+    // Getter, returns model`s data
+    // TODO: ability to return multiple values
+    get: function (key) {
+        if (arguments.length > 1) return void 0;
+        if (arguments.length === 0) return this.data;
+        return this.data[key];
+    },
 
-        return oldData;
+    // Clears data object
+    clear: function() {
+        this.data = {};
+        return this;
     },
 
     // Gets data from server and sets it to model
     updateData: function() {
-        var data = this.getData();
-        if (data === 'actual') {
-            this.events.sendMessage(EventService.messages.MODEL_HAS_BEEN_UPDATED, null);
-        } else {
-            this.set(data);
-        }
+        
     },
 
-    // AJAX request to server
-    getData: function() {
-        return 'actual';
+    // Serializing model
+    toJSON: function() {
+        return this.data.toJSON();
     }
-};
+});

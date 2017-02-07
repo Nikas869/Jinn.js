@@ -1,17 +1,21 @@
 ﻿'use strict';
 
-function Application(routeMap) {
-    this._routeMap = routeMap;
+function JinnApp() {
     this.data = {};
-    this._models = [];
-    this._views = [];
+    this.models = {};
+    this.views = {};
+
+    // Global event bus
+    this.events = new EventService();
+
+    this.Model = Model;
+    this.View = View;
 
     this.init();
 };
 
-Application.prototype = {
-    init: function() {
-        this.router = new Router(this._routeMap);
+$.extend(JinnApp.prototype, {
+    init: function () {
         this._analizeDom()
             ._initializeModels()
             ._initializeViews();
@@ -19,7 +23,7 @@ Application.prototype = {
 
     _analizeDom: function() {
         // TODO: analize DOM of document and find elements with specifyied 'data-' attr
-
+        
         return this;
     },
 
@@ -33,13 +37,5 @@ Application.prototype = {
         // TODO: map elements and theirs setting to views using this._models
 
         return this;
-    },
-
-    bind: function(model, view) {
-
-    },
-
-    get: function() {
-
     }
-};
+});

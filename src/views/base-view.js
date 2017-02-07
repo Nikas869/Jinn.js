@@ -1,11 +1,11 @@
 ﻿'use sctrict';
 
-function View() {
+var View = function() {
     this.models = [];
     var argModels = arguments;
-    attachModels.call(this);
-
-    function attachModels() {
+    attachModels(argModels);
+    
+    function attachModels(argModels) {
         for (var i = 0; i < argModels.length; i++) {
             if (argModels[i] instanceof Model) {
                 this.models.push(argModels[i]);
@@ -26,7 +26,7 @@ View.prototype = {
             .enable();
     },
 
-    createChildren: function() {
+    createChildren: function () {
         this.$button = $('.button');
 
         return this;
@@ -39,12 +39,12 @@ View.prototype = {
     },
 
     enable: function() {
-        this.$button.click(this.modelUpdateHandler);
         for (var i = 0; i < this.models.length; i++) {
-            this.models[i].events.registerListener(EventService.messages.VIEW_RENDER_REQUEST,
+            this.models[i].events.registerListener(EventService.messages.MODEL_HAS_BEEN_UPDATED,
                 this.modelUpdateHandler,
-                null);
+                this);
         }
+        this.$button.click(this.events.sendMessage(EventService.messages.MODEL_UPDATE_REQUEST, null));
 
         return this;
     },
