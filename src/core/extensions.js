@@ -1,19 +1,28 @@
-﻿'use strict';
+﻿(function(global) {
+    'use strict';
 
-var _ = (function() {
-    var Extensions = {};
+    var _ = global._ || {};
 
-    Extensions.getUniqueId = (function() {
-        var uniqueIdcounter = 1;
-        var getUniqueId = function() {
-            return uniqueIdcounter++;
-        }
-        return getUniqueId;
-    }());
+    var uniqueIdcounter = 0;
 
-    Extensions.Array.remove = function(array, index) {
+    function remove(array, index) {
         array.splice(index, 1);
-    };
+    }
 
-    return Extensions;
-}());
+    _.remove = remove;
+
+    function getUniqueId() {
+        uniqueIdcounter++;
+        return uniqueIdcounter;
+    }
+
+    _.getUniqueId = getUniqueId;
+
+    function l(obj) {
+        console.log(obj);
+    }
+
+    _.l = l;
+
+    global._ = _;
+}(this));

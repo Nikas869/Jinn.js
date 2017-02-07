@@ -15,7 +15,7 @@ function JinnApp() {
 };
 
 $.extend(JinnApp.prototype, {
-    init: function () {
+    init: function() {
         this._analizeDom()
             ._initializeModels()
             ._initializeViews();
@@ -23,7 +23,7 @@ $.extend(JinnApp.prototype, {
 
     _analizeDom: function() {
         // TODO: analize DOM of document and find elements with specifyied 'data-' attr
-        
+
         return this;
     },
 

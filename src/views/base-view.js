@@ -3,8 +3,8 @@
 var View = function() {
     this.models = [];
     var argModels = arguments;
-    attachModels(argModels);
-    
+    attachModels.call(this, argModels);
+
     function attachModels(argModels) {
         for (var i = 0; i < argModels.length; i++) {
             if (argModels[i] instanceof Model) {
@@ -26,7 +26,7 @@ View.prototype = {
             .enable();
     },
 
-    createChildren: function () {
+    createChildren: function() {
         this.$button = $('.button');
 
         return this;

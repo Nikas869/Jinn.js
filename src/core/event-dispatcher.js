@@ -25,7 +25,7 @@ $.extend(EventService.prototype, {
         if (messageListeners !== void 0) {
             for (var i = 0; i < messageListeners.length; i++) {
                 if (messageListeners[i].listener === listener) {
-                    ArrayExtensions.remove(messageListeners, i);
+                    _.remove(messageListeners, i);
                 }
             }
         }

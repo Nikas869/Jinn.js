@@ -2,17 +2,17 @@
 
 var Model = function(data) {
     this.data = data || {};
-    //var prefix = 'm';
-    //this.id = prefix + _.getUniqueId();
+    var prefix = 'm';
+    this.id = prefix + _.getUniqueId();
 
     this.events = new EventService();
 };
 
 $.extend(Model.prototype, {
-    
+
     // Setting new data and notifying about it
     // TODO: ability to set multiple key:value or set as {key:value} object
-    set: function (key, value) {
+    set: function(key, value) {
         if (arguments.length !== 2 || typeof arguments[0] !== 'string') {
             return this;
         }
@@ -24,7 +24,7 @@ $.extend(Model.prototype, {
 
     // Getter, returns model`s data
     // TODO: ability to return multiple values
-    get: function (key) {
+    get: function(key) {
         if (arguments.length > 1) return void 0;
         if (arguments.length === 0) return this.data;
         return this.data[key];
@@ -38,7 +38,7 @@ $.extend(Model.prototype, {
 
     // Gets data from server and sets it to model
     updateData: function() {
-        
+
     },
 
     // Serializing model
