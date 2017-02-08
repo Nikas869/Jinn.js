@@ -13,23 +13,20 @@ var View = function() {
         }
     }
 
+    var prefix = 'v';
+    this._id = prefix + _.getUniqueId();
+
     this.events = new EventService();
 
-    this.init();
+    // TODO: inheritance
+    this.init.call(this);
 }
 
-View.prototype = {
+_.extend(View.prototype, {
 
     init: function() {
-        this.createChildren()
-            .setupHandlers()
+        this.setupHandlers()
             .enable();
-    },
-
-    createChildren: function() {
-        this.$button = $('.button');
-
-        return this;
     },
 
     setupHandlers: function() {
@@ -40,16 +37,20 @@ View.prototype = {
 
     enable: function() {
         for (var i = 0; i < this.models.length; i++) {
-            this.models[i].events.registerListener(EventService.messages.MODEL_HAS_BEEN_UPDATED,
+            this.models[i].events.registerListener(
+                EventService.messages.MODEL_HAS_BEEN_UPDATED,
                 this.modelUpdateHandler,
                 this);
         }
-        this.$button.click(this.events.sendMessage(EventService.messages.MODEL_UPDATE_REQUEST, null));
 
         return this;
     },
 
-    render: function() {
-        console.log(this.models[0].get());
-    }
-};
+    render: function() {},
+
+    remove: function() {},
+
+    show: function() {},
+
+    hide: function() {}
+});
