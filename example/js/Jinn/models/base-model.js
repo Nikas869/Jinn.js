@@ -3,12 +3,16 @@
 var Model = function(data) {
     this.data = data || {};
     var prefix = 'm';
-    this.id = prefix + _.getUniqueId();
+    this._id = prefix + _.getUniqueId();
 
     this.events = new EventService();
+
+    // TODO: correct inheritance to call overrided init func
+    this.init.call(this);
 };
 
 _.extend(Model.prototype, {
+    init: function() {},
 
     // Setting new data and notifying about it
     // TODO: ability to set multiple key:value or set as {key:value} object

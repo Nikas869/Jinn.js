@@ -1,42 +1,58 @@
 ﻿(function() {
     'use strict';
 
-    // creating new app instance
-    var Jinn = new JinnApp();
-    // cl
-    _.l(Jinn);
-    // creating new model with data.somedata
-    var model = new Jinn.Model({ somedata: 'somedata value' });
-    _.l(model);
-    // creating another model with data.anotherdata and overriding get() method
-    var model1 = new Jinn.Model({ anotherdata: 'anotherdata value' });
-    _.extend(model1, {
-        get: function() {
-            alert(this.data.anotherdata);
-        }
-    });
-    _.l(model1);
-    // creating another one model
-    var model3 = _.extend(new Jinn.Model, {
-            data: {
-                key: 'value'
-            },
+    var jinn = null;
 
-            hello: function() {
-                var data = this.get('key');
-                alert(data);
+    // On page loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        jinn = new JinnApp();
+        var model = _.extend(new jinn.Model, {
+
+            data: {
+                number: null
             }
-        })
-        // call to hello()
-    model3.hello();
-    // creating new view bounded to 'model' and overriding render() method
-    var view = _.extend(new View(model), {
-        render: function() {
-            for (var i = 0; i < this.models.length; i++) {
-                alert(this.models[i].get('somedata'));
+
+        });
+        var view1 = _.extend(new jinn.View(model), {
+
+            render: function() {
+                this.label1 = document.getElementById('label');
+                this.label1.innerHTML = this.models[0].get('number');
             }
-        }
+
+        });
+        view1.init();
+
+        var view3 = _.extend(new jinn.View(model), {
+
+            render: function() {
+                this.label1 = document.getElementById('label2');
+                this.label1.innerHTML = this.models[0].get('number');
+            }
+
+        });
+        view3.init();
+
+        var view2 = _.extend(new jinn.View(model), {
+
+            render: function() {
+                this.p = document.getElementById('input');
+
+                var element = this.p;
+                var model = this.models[0];
+
+                var setModel = function() {
+                    model.set('number', element.value);
+                }
+
+                this.p.addEventListener('input', setModel);
+            }
+
+        });
+        view2.render();
+
+        _.l(view1);
+        _.l(view2);
+        _.l(model);
     });
-    view.render();
-    _.l(view);
 })();

@@ -8,10 +8,12 @@ function JinnApp() {
     // Global event bus
     this.events = new EventService();
 
+    // TODO: change func to add created obj to array
     this.Model = Model;
     this.View = View;
 
-    this.init();
+    // TODO: inheritance
+    this.init.call(this);
 };
 
 _.extend(JinnApp.prototype, {
