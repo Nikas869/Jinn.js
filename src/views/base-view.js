@@ -11,7 +11,7 @@ var View = function(additionalProps) {
     attachModels.call(this, argModels);
 
     function attachModels(argModels) {
-        for (var i = 0; i < argModels.length; i++) {
+        for (var i = 1; i < argModels.length; i++) {
             if (argModels[i] instanceof Model) {
                 this.models.push(argModels[i]);
             }
