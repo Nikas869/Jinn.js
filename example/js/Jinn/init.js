@@ -6,36 +6,34 @@
     // On page loaded
     document.addEventListener('DOMContentLoaded', function() {
         jinn = new JinnApp();
-        var model = _.extend(new jinn.Model, {
+        var model = new jinn.Model({
 
             data: {
                 number: null
             }
 
         });
-        var view1 = _.extend(new jinn.View(model), {
+        var view1 = new jinn.View({
 
             render: function() {
                 this.label1 = document.getElementById('label');
                 this.label1.innerHTML = this.models[0].get('number');
             }
 
-        });
-        view1.init();
+        }, model);
 
-        var view3 = _.extend(new jinn.View(model), {
+        var view3 = new jinn.View({
 
             render: function() {
                 this.label1 = document.getElementById('label2');
                 this.label1.innerHTML = this.models[0].get('number');
             }
 
-        });
-        view3.init();
+        }, model);
 
-        var view2 = _.extend(new jinn.View(model), {
+        var view2 = new jinn.View({
 
-            render: function() {
+            init: function() {
                 this.p = document.getElementById('input');
 
                 var element = this.p;
@@ -48,8 +46,7 @@
                 this.p.addEventListener('input', setModel);
             }
 
-        });
-        view2.render();
+        }, model);
 
         _.l(view1);
         _.l(view2);

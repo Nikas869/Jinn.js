@@ -1,6 +1,11 @@
 ﻿'use sctrict';
 
-var View = function() {
+var View = function(additionalProps) {
+    var prefix = 'v';
+    this._id = prefix + _.getUniqueId();
+
+    this.events = new EventService();
+
     this.models = [];
     var argModels = arguments;
     attachModels.call(this, argModels);
@@ -13,13 +18,9 @@ var View = function() {
         }
     }
 
-    var prefix = 'v';
-    this._id = prefix + _.getUniqueId();
+    _.extend(this, additionalProps);
 
-    this.events = new EventService();
-
-    // TODO: inheritance
-    this.init.call(this);
+    this.init();
 }
 
 _.extend(View.prototype, {
@@ -36,14 +37,29 @@ _.extend(View.prototype, {
     },
 
     enable: function() {
-        for (var i = 0; i < this.models.length; i++) {
-            this.models[i].events.registerListener(
-                EventService.messages.MODEL_HAS_BEEN_UPDATED,
-                this.modelUpdateHandler,
-                this);
-        }
+        this._subscribeToModels.apply(this, this.models);
 
         return this;
+    },
+
+    addModels: function() {
+        for (var i = 0; i < arguments.length; i++) {
+            if (arguments[i] instanceof Model) {
+                this.models.push(arguments[i]);
+            }
+        }
+        this._subscribeToModels.apply(this, arguments);
+    },
+
+    _subscribeToModels: function() {
+        for (var i = 0; i < arguments.length; i++) {
+            if (arguments[i] instanceof Model) {
+                arguments[i].events.registerListener(
+                    EventService.messages.MODEL_HAS_BEEN_UPDATED,
+                    this.modelUpdateHandler,
+                    this);
+            }
+        }
     },
 
     render: function() {},
