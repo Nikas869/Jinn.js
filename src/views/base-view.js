@@ -20,14 +20,15 @@ var View = function(additionalProps) {
 
     _.extend(this, additionalProps);
 
-    this.init();
+    this.init()
+        .setupHandlers()
+        .enable();
 }
 
 _.extend(View.prototype, {
 
     init: function() {
-        this.setupHandlers()
-            .enable();
+        return this;
     },
 
     setupHandlers: function() {
