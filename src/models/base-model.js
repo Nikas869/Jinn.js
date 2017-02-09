@@ -1,14 +1,15 @@
 ﻿'use sctrict';
 
-var Model = function(data) {
-    this.data = data || {};
+var Model = function(additionalProps) {
+    this.data = {};
     var prefix = 'm';
     this._id = prefix + _.getUniqueId();
 
     this.events = new EventService();
 
-    // TODO: correct inheritance to call overrided init func
-    this.init.call(this);
+    _.extend(this, additionalProps);
+
+    this.init();
 };
 
 _.extend(Model.prototype, {
