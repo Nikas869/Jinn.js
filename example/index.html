@@ -9,13 +9,20 @@
 </head>
 
 <body>
-    <input type="text" id="input" />
-    <p id="label">Hi!</p>
-    <p id="label2">Hi!</p>
+    <div class="ui three item menu">
+        <a href="#" class="item">Main</a>
+        <a href="#teams" class="item">Teams</a>
+        <a href="#results" class="item">Results</a>
+    </div>
+
+    <input type="text" id="input" style="display:none" />
+    <p id="label" style="display: none; color: red;">Hi!</p>
+    <p id="label2" style="display: none; color: green">Hi!</p>
 
     <script src="js/Jinn/core/extensions.js"></script>
     <script src="js/Jinn/core/app-instance.js"></script>
     <script src="js/Jinn/core/event-dispatcher.js"></script>
+    <script src="js/Jinn/core/router.js"></script>
     <script src="js/Jinn/models/base-model.js"></script>
     <script src="js/Jinn/views/base-view.js"></script>
     <script src="js/Jinn/init.js"></script>

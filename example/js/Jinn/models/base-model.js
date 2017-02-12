@@ -14,6 +14,7 @@ var Model = function(additionalProps) {
 
 _.extend(Model.prototype, {
 
+    // Some initial actions
     init: function() {
         return this;
     },
